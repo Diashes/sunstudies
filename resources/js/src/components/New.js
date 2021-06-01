@@ -44,7 +44,6 @@ function New() {
 
   function getImagesWithTime(items) {
     const [year, month, day] = sunBasedOnDate.split('-');
-    console.log({ items, year, month, day })
     const [hour, minutes] = startTime.split(':');
     const [hoursPerImage, minutesPerImage] = timePerImage.split(':');
     return items.map((image, index) => {
