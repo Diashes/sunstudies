@@ -14,7 +14,7 @@ class ImageController extends Controller
      */
     public function index()
     {
-        return view('images');
+        return Image::all();
     }
 
     /**
@@ -54,7 +54,7 @@ class ImageController extends Controller
 
         foreach($request->images as $uploadedImage) {
             $image = new Image;
-            $image->name = time() . '.' . $uploadedImage->getClientOriginalName();
+            $image->name = time() . '.' . str_replace(' ', '_', $uploadedImage->getClientOriginalName());
             $image->path = 'storage/' . $uploadedImage->storeAs('images', $image->name, 'public');
             $image->save();
             array_push($uploadedImages, $image);
