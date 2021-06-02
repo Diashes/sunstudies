@@ -40,7 +40,7 @@ class SunstudyController extends Controller
         $sunstudy->start_time = $request->start_time;
         $sunstudy->sun_based_on_date = $request->sun_based_on_date;
         $sunstudy->save();
-        
+
         if ($request->has('images')) {
             foreach($request->images as $item) {
                 $image = Image::findOrFail($item['id']);
@@ -86,7 +86,7 @@ class SunstudyController extends Controller
         $sunstudy->start_time = $request->start_time;
         $sunstudy->sun_based_on_date = $request->sun_based_on_date;
         $sunstudy->save();
-        
+
         if ($request->has('images')) {
             foreach($request->images as $item) {
                 $image = Image::findOrFail($item['id']);
@@ -107,6 +107,13 @@ class SunstudyController extends Controller
     public function destroy($id)
     {
         $sunstudy = Sunstudy::findOrFail($id);
+
+        if ($sunstudy->has('images')) {
+            foreach($sunstudy->images as $image) {
+                $image->delete();
+            }
+        }
+
         $sunstudy->delete();
 
         return response()->json([
